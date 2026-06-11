@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دبلومات معهد جازان العالي للتدريب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #004d88;
+            --light-blue: #009edf;
+            --orange: #e97125;
+            --text-color: #2c3e50;
+            --white-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Tajawal', Tahoma, Geneva, sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e1f0fa 50%, #fff3ec 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--white-bg);
+            box-shadow: 0 4px 15px rgba(0, 77, 136, 0.08);
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 4px solid var(--orange);
+            position: relative;
+            z-index: 100;
+        }
+
+        header img {
+            max-width: 280px;
+            width: 80%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 30px 20px;
+            background-color: var(--white-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .selection-area {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px dashed rgba(0, 158, 223, 0.2);
+            position: relative;
+            z-index: 50; /* Ensure it's clickable */
+        }
+
+        .selection-area label {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* STYLES FOR THE SELECT - Keeping it basic and native for mobile to avoid bugs */
+        select#diplomaSelect {
+            width: 100%;
+            max-width: 500px;
+            height: 60px;
+            padding: 0 15px;
+            font-size: 1.2rem;
+            font-family: 'Tajawal', sans-serif;
+            border: 2px solid var(--light-blue);
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: var(--primary-blue);
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 158, 223, 0.1);
+
+            /* Enable native appearance to guarantee mobile functionality */
+            -webkit-appearance: menulist;
+            -moz-appearance: menulist;
+            appearance: menulist;
+        }
+
+        select#diplomaSelect:focus {
+            border-color: var(--orange);
+            outline: none;
+        }
+
+        .details-section {
+            display: none;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2#diplomaTitle {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2#diplomaTitle::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--orange);
+            border-radius: 2px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border-right: 5px solid var(--light-blue);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .info-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3::before {
+            content: '📌';
+            color: var(--orange);
+        }
+
+        .info-card p {
+            text-align: justify;
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin: 0;
+        }
+
+        ul.objectives-list {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+
+        ul.objectives-list li {
+            position: relative;
+            padding-right: 30px;
+            font-size: 1.1rem;
+            color: #4a5568;
+            background: #fdfdfd;
+            padding: 10px 30px 10px 10px;
+            border-radius: 8px;
+            border: 1px solid #eef2f7;
+            margin-bottom: 10px;
+        }
+
+        ul.objectives-list li::before {
+            content: "✓";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            background-color: var(--orange);
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            margin: 30px 0 20px;
+            text-align: right;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 10px;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .level-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .level-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .level-courses {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .level-courses li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #4a5568;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .level-courses li:last-child {
+            border-bottom: none;
+        }
+
+        .level-courses li::before {
+            content: "▪";
+            color: var(--orange);
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+                margin: 15px;
+                border-radius: 12px;
+            }
+
+            select#diplomaSelect {
+                height: 55px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* --- تنسيقات قسم التواصل --- */
+        .contact-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px dashed rgba(0, 158, 223, 0.2);
+        }
+        .contact-title {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .contact-divider {
+            width: 40px;
+            height: 4px;
+            background-color: #dcb12d;
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .contact-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 4px solid #dcb12d;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 400px;
+            border-top: 1px solid #f0f4f8;
+            border-left: 1px solid #f0f4f8;
+            border-right: 1px solid #f0f4f8;
+        }
+        .contact-avatar {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        .contact-branch {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .contact-phone {
+            background-color: #eef4fa;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .contact-phone:hover {
+            background-color: #e2ebf5;
+        }
+        .contact-phone:last-child {
+            margin-bottom: 0;
+        }
+        .contact-website {
+            display: inline-block;
+            background-color: #f0f4f8;
+            color: #4a5568;
+            font-size: 1rem;
+            padding: 8px 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="شعار المعهد.png" alt="شعار معهد جازان العالي للتدريب">
+    </header>
+
+    <div class="container">
+        <div class="selection-area">
+            <label for="diplomaSelect">اكتشف تفاصيل برامجنا التدريبية</label>
+            <select id="diplomaSelect" onchange="showDiplomaDetails()">
+                <option value="">-- يرجى اختيار الدبلوم من القائمة --</option>
+            </select>
+        </div>
+
+        <div id="detailsContainer" class="details-section">
+            <h2 id="diplomaTitle">عنوان الدبلوم</h2>
+
+            <div class="info-card">
+                <h3>وصف البرنامج</h3>
+                <p id="diplomaDescription"></p>
+            </div>
+
+            <div class="info-card">
+                <h3>الهدف العام للبرنامج</h3>
+                <p id="diplomaGeneralObj"></p>
+            </div>
+
+            <div class="info-card">
+                <h3>الأهداف التفصيلية للبرنامج</h3>
+                <ul id="diplomaSpecificObjs" class="objectives-list">
+                </ul>
+            </div>
+
+            <h2 class="section-title">المستويات والمقررات التدريبية</h2>
+            <div id="levelsGrid" class="levels-grid">
+            </div>
+
+            <div class="contact-section">
+                <h2 class="contact-title">تواصل معنا للتسجيل والاستفسار</h2>
+                <div class="contact-divider"></div>
+
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <div class="contact-avatar">👨🏼‍💼</div>
+                        <div class="contact-branch">فرع الرجال</div>
+                         <a href="tel:0558966333" class="contact-phone" dir="ltr">
+                            📞 055 896 6333
+                        </a>
+                        <a href="tel:0554607773" class="contact-phone" dir="ltr">
+                            📞 055 460 7773
+                        </a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-avatar">👩🏼‍💼</div>
+                        <div class="contact-branch">فرع السيدات</div>
+                        <a href="tel:0501986555" class="contact-phone" dir="ltr">
+                            📞 050 198 6555
+                        </a>
+                        <a href="tel:0559843344" class="contact-phone" dir="ltr">
+                            📞 055 984 3344
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+    </div>
+
+    <script>
+        const diplomasData = {
+            "إدارة الموارد البشرية": {
+                description: "صُمم دبلوم إدارة الموارد البشرية بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب على هذا التخصص في الكليات التقنية في خمسة فصول تدريبية نصفية، مدة كل فصل تدريبي ثمانية عشر أسبوعاً تدريبياً، بمجموع (1632) ساعة تدريب، إضافة إلى (490) ساعة تدريب عملي في سوق العمل، بما يعادل (79) ساعة معتمدة. ويتم التدريب في هذا البرنامج على المهارات التخصصية في التوظيف وتخطيط الموارد البشرية والتدريب وتقييم الأداء.",
+                generalObjective: "يهدف هذا البرنامج إلى تأهيل المتدرب للعمل في مجال ادارة الموارد البشرية على المستوى الخامس من نظام المؤهلات المهنية الوطنية.",
+                specificObjectives: [
+                    "يطبق التقنيات الحديثة في مجال إدارة الموارد البشرية.",
+                    "ينظم إدارة أعمال الموارد البشرية.",
+                    "يتعامل مع الأفراد من داخل وخارج المنظمة.",
+                    "يشارك في تدريب وتنمية الموارد البشرية."
+                ]
+            },
+            "الإدارة المكتبية": {
+                description: "صُمم دبلوم الإدارة المكتبية في قسم التقنية الإدارية بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، حيث يتم التدريب عليه في الكليات التقنية، في خمسة فصول تدريبية نصفية، مدة كل فصل تدريبي ثمانية عشر أسبوعاً تدريبياً، بمجموع (2106) ساعة تدريب، إضافة إلى (490) ساعة تدريب عملي في سوق العمل، بما يعادل (80) ساعة معتمدة. ويمنح المتخرج الشهادة الجامعية المتوسطة في تخصص الإدارة المكتبية.",
+                generalObjective: "يهدف هذا البرنامج إلى تزويد المتدرب بالمهارات والمعلومات اللازمة لممارسة العمل في مجال الإدارة المكتبية ويحصل على المستوى السادس في الإطار الوطني للمؤهلات.",
+                specificObjectives: [
+                    "يطبق التقنيات الحديثة في مجال إدارة المكاتب.",
+                    "ينظم إدارة أعمال السكرتارية المختلفة.",
+                    "يتعامل مع الأفراد من داخل وخارج المنظمة وفقاً للأساليب السليمة."
+                ]
+            },
+            "المحاسبة": {
+                description: "صُمم دبلوم المحاسبة في قسم التقنية الإدارية بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب على هذا التخصص في الكليات التقنية، في خمسة فصول تدريبية نصفية، مدة كل فصل تدريبي ثمانية عشر أسبوعاً، بمجموع (1600) ساعة تدريب، إضافة إلى (490) ساعة تدريب عملي في سوق العمل، بما يعادل (76) ساعة معتمدة. ويمنح الخريج الشهادة الجامعية المتوسطة في تخصص المحاسبة.",
+                generalObjective: "يهدف هذا البرنامج إلى تزويد المتدرب بالمهارات والمعلومات اللازمة لممارسة العمل في مجال المحاسبة ويحصل على المستوى السادس في الإطار الوطني للمؤهلات.",
+                specificObjectives: [
+                    "يمسك الحسابات المالية وحسابات التكاليف في المنشآت التجارية والصناعية.",
+                    "يساعد في إعداد القوائم المالية الختامية والتقارير المالية الأخرى.",
+                    "يساهم في احتساب وجباية الزكاة والضرائب."
+                ]
+            },
+            "الأمن السيبراني": {
+                description: "صُمم دبلوم الأمن السيبراني بما يتوافق مع احتياجات سوق العمل المحلية، حيث يتم التدريب ليكون الخريج قادراً على حماية الأنظمة والشبكات والبرامج من الهجمات الرقمية. ويتضمن البرنامج المهارات التخصصية في التشفير وأمن الشبكات وأنظمة التشغيل، ويؤهل المتدرب للحصول على شهادات احترافية.",
+                generalObjective: "يهدف هذا البرنامج إلى تزويد المتدرب بالمهارات والمعلومات اللازمة لممارسة العمل في مجال الأمن السيبراني وحماية الشبكات والبنية التحتية التقنية.",
+                specificObjectives: [
+                    "اكتشاف وتقييم الثغرات الأمنية في الأنظمة.",
+                    "تطبيق بروتوكولات التشفير وأمن السحابة.",
+                    "إدارة أمن المعلومات والتحليل الجنائي للجرائم الإلكترونية."
+                ]
+            },
+            "شبكات الحاسب": {
+                description: "صُمم دبلوم تقنية شبكات الحاسب في قسم تقنية الحاسب بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب على هذا التخصص في الكليات التقنية، في خمسة فصول تدريبية نصفية، مدة كل فصل تدريبي ثمانية عشر أسبوعاً، بمجموع (1744) ساعة تدريب، إضافة إلى (490) ساعة تدريب عملي في سوق العمل، بما يعادل (79) ساعة معتمدة.",
+                generalObjective: "يهدف هذا البرنامج إلى تزويد المتدرب بالمهارات والمعلومات اللازمة لممارسة العمل في مجال شبكات الحاسب ويحصل على المستوى الخامس في الإطار الوطني للمؤهلات.",
+                specificObjectives: [
+                    "بناء شبكة حاسب صغيرة لمتوسطة.",
+                    "اختيار أجهزة الشبكة المناسبة لكل مشروع.",
+                    "تهيئة جهاز الموجه بحيث يعمل داخل الشبكة بكفاءة.",
+                    "تهيئة جهاز المحول بحيث يعمل داخل الشبكة بكفاءة."
+                ]
+            },
+            "إدارة المستشفيات والمؤسسات الصحية": {
+                description: "صُمم دبلوم إدارة المستشفيات والمؤسسات الصحية بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب في هذا التخصص في خمسة فصول تدريبية نصفية، مدة كل فصل تدريبي ستة عشر أسبوعاً تدريبياً، بمجموع (1792) ساعة تدريب، إضافة إلى (360) ساعة تدريب عملي في سوق العمل، بما يعادل (83) ساعة معتمدة. ويمنح الخريج شهادة الدبلوم في إدارة المستشفيات.",
+                generalObjective: "يهدف هذا البرنامج إلى تأهيل المتدرب للعمل في مجال إدارة المستشفيات وجميع المراكز الطبية والصحية، والعمل في العلاقات العامة والاتصال في المستشفيات.",
+                specificObjectives: [
+                    "يحدد الأعمال الإدارية والاحصاءات الصحية في المستشفى ومراقبة الأداء في جميع الأقسام.",
+                    "ينظم الية العمل بالعلاقات العامة ولدية القدرة على الاتصال والاستعلام في كافة المؤسسات الصحية.",
+                    "يضبط استخدام المصطلحات الطبية بكفاءة وفاعلية اثناء العمل.",
+                    "يحدد معايير الجودة بأقسام خدمات المرضى بكفاءة وفاعلية.",
+                    "يفهم مكونات وخصائص النظام الصحي في المملكة العربية السعودية."
+                ]
+            },
+            "إدارة التمريض": {
+                description: "صُمم دبلوم إدارة التمريض بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب في هذا التخصص في خمسة فصول تدريبية نصفية مجزأة، مدة كل جزء ثمانية أسابيع تدريبية، بمجموع (1648) ساعة تدريب، إضافة إلى (360) ساعة تدريب عملي في سوق العمل، بما يعادل (75) ساعة معتمدة. وتشكل الجوانب العملية والتطبيقية ما لا يقل عن 60٪ من إجمالي ساعات البرنامج.",
+                generalObjective: "يهدف هذا البرنامج إلى تأهيل المتدرب للعمل في مجال إدارة التمريض وفق أحدث الممارسات الإدارية والمهنية في القطاع الصحي، مما يعزز الكفاءة والجودة في تقديم الخدمات الإدارية الصحية ويحصل على المستوى الخامس من نظام المؤهلات المهنية الوطنية.",
+                specificObjectives: [
+                    "يطبّق الأسس الإدارية والتنظيمية الحديثة في إدارة أقسام التمريض.",
+                    "يخطط للموارد البشرية التمريضية ويشرف على توزيعها حسب الاحتياج.",
+                    "يتعامل مع الأزمات والطوارئ في المنشآت الصحية.",
+                    "يطبق نظم المعلومات الصحية وإدارة الوثائق والسجلات."
+                ]
+            },
+            "الذكاء الاصطناعي": {
+                description: "صُمم دبلوم الذكاء الاصطناعي بما يتوافق مع احتياجات سوق العمل للتخصص، ويتم التدريب عليه في خمسة فصول تدريبية نصفية مجزأة، مدة كل جزء ثمانية أسابيع تدريبية، بمجموع (1856) ساعة تدريب، إضافة إلى (360) ساعة تدريب عملي في سوق العمل بما يعادل (83) ساعة معتمدة. ويمنح الخريج شهادة الدبلوم في الذكاء الاصطناعي ومن المتوقع أن يعمل في المجالات المرتبطة بالذكاء الاصطناعي وتطبيقاته.",
+                generalObjective: "يهدف هذا البرنامج إلى تزويد المتدرب بالمهارات والمعلومات اللازمة لممارسة العمل في مجال الذكاء الاصطناعي، ويحصل على المستوى الخامس من نظام المؤهلات المهنية الوطنية.",
+                specificObjectives: [
+                    "فهم المفاهيم والنظريات الأساسية في مجال الذكاء الاصطناعي، مما يتيح القدرة على التحليل النقدي.",
+                    "تطوير وتطبيق نماذج الذكاء الاصطناعي لحل المشكلات.",
+                    "معالجة البيانات وتحليلها وتطوير نماذج التعلم الآلي والشبكات العصبية."
+                ]
+            },
+            "إدارة المنظمات الغير ربحية": {
+                description: "صُمم برنامج دبلوم إدارة المنظمات الغير ربحية بما يتوافق مع احتياجات سوق العمل المحلية للتخصص، ويتم التدريب في هذا التخصص في ثلاثة فصول تدريبية نصفية مجزأة، مدة كل جزء ثمانية أسابيع تدريبية، بمجموع (1272) ساعة تدريب، و (45) ساعة معتمدة. ويمنح الخريج من هذا البرنامج شهادة التدريب في إدارة المنظمات الغير ربحية.",
+                generalObjective: "يهدف هذا البرنامج إلى تأهيل المتدرب للعمل في مجال إدارة المنظمات الغير ربحية، ومن المتوقع أن يعمل في المجالات المرتبطة بعملية إدارة المنظمات الغير ربحية.",
+                specificObjectives: [
+                    "يطبق التقنيات الحديثة في مجال إدارة المنظمات غير الربحية.",
+                    "ينظم إدارة أعمال المنظمات غير الربحية.",
+                    "يتعامل مع الأفراد والتطوع بشكل مؤسسي.",
+                    "يطبق الحوكمة وإدارة المشاريع وتقييمها وتسويقها."
+                ]
+            }
+        };
+
+        // Data for levels
+        const levelsData = {
+            "إدارة الموارد البشرية": [
+                { level: "الأول", courses: ["مبادئ إدارة الأعمال", "الرياضيات", "لغة انجليزية 1"] },
+                { level: "الثاني", courses: ["مبادئ إدارة الموارد البشرية", "مقدمة تطبيقات الحاسب", "التوجيه المهني والتميز", "الكتابة الفنية"] },
+                { level: "الثالث", courses: ["مبادئ المحاسبة", "تطبيقات الحاسب المتقدمة", "الدراسات الإسلامية", "لغة انجليزية 2"] },
+                { level: "الرابع", courses: ["تحليل وتقييم الوظائف", "مقدمة في الإحصاء", "تخطيط الموارد البشرية"] },
+                { level: "الخامس", courses: ["إدارة الأداء", "الاستقطاب والاختيار", "لغة انجليزية 3"] },
+                { level: "السادس", courses: ["تدريب وتنمية  الموارد البشرية", "تطبيقات الحاسب في الموارد البشرية", "إدارة الخدمة المدنية"] },
+                { level: "السابع", courses: ["السلوك الوظيفي ومهارات الاتصال", "مهارات التعلم", "مصطلحات إنجليزية في الموارد البشرية"] },
+                { level: "الثامن", courses: ["موضوعات مختارة في الموارد البشرية", "إدارة نظم الأجور"] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "الإدارة المكتبية": [
+                { level: "الأول", courses: ["مبادئ إدارة الأعمال", "لغة انجليزية 1", "الرياضيات"] },
+                { level: "الثاني", courses: ["التوجيه المهني والتميز", "مهارات الطباعة العربية ", "الكتابة الفنية ", "مقدمة تطبيقات الحاسب"] },
+                { level: "الثالث", courses: ["لغة انجليزية 2", "مقدمة في الاحصاء", "مهارات الطباعة انجليزي"] },
+                { level: "الرابع", courses: ["إدارة وتقنيات المكاتب", "الاتصالات الإدارية"] },
+                { level: "الخامس", courses: ["تطبيقات الحاسب المتقدمة ", "الدراسات الإسلامية", "إدارة الوقت"] },
+                { level: "السادس", courses: ["إجراءات السكرتارية", "مقدمة في الاقتصاد", "لغة انجليزية 3"] },
+                { level: "السابع", courses: ["مهارات التعلم ", "السلوك الوظيفي ومهارات الاتصال", "إدارة الموارد البشرية "] },
+                { level: "الثامن", courses: ["إدارة الجودة الشاملة ", "موضوعات مختارة ", "استخدام الحاسب الالي في الأعمال المكتبية "] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "المحاسبة": [
+                { level: "الأول", courses: ["لغة انجليزية 1", "رياضيات ", "مبادئ إدارة الأعمال"] },
+                { level: "الثاني", courses: ["مبادئ المحاسبة ", "كتابة فنية ", "التوجيه المهني والتميز", "مقدمة تطبيقات الحاسب"] },
+                { level: "الثالث", courses: ["لغة انجليزية 2", "محاسبة متوسطة 1", "مقدمة في الاقتصاد"] },
+                { level: "الرابع", courses: ["المحاسبة الحكومية", "مقدمة في الاحصاء ", "تطبيقات الحاسب المتقدمة "] },
+                { level: "الخامس", courses: ["محاسبة تكاليف", "الدراسات الإسلامية", "محاسبة متوسطة 2"] },
+                { level: "السادس", courses: ["لغة انجليزية 3", "محاسبة منشئات مالية", "محاسبة الزكاة والدخل "] },
+                { level: "السابع", courses: ["مهارات التعلم ", "السلوك الوظيفي ومهارات الاتصال", "الجداول الالكترونية المتخصصة", "موضوعات مختارة "] },
+                { level: "الثامن", courses: ["تطبيقات محاسبية بالحاسب الآلي", "المحاسبة باللغة الإنجليزية ", "المراجعة"] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "الأمن السيبراني": [
+                { level: "الأول", courses: ["مقدمة تطبيقات الحاسب", "تجميع الحاسب و تشغيله", "التوجيه المهني والتميز"] },
+                { level: "الثاني", courses: ["مبادئ شبكات الحاسب", "لغة انجليزية 1", "الرياضيات"] },
+                { level: "الثالث", courses: ["تطبيقات الحاسب المتقدمة", "مقدمة في الأمن السيبراني", "لغة انجليزية 2", "الفيزياء "] },
+                { level: "الرابع", courses: ["التشفير التطبيقي", "أمن الشبكات", "لغة انجليزية 3"] },
+                { level: "الخامس", courses: ["نظم التشغيل 1", "إدارة أمن المعلومات", "لغة انجليزية 4"] },
+                { level: "السادس", courses: ["برمجة حاسب", "نظم التشغيل 2", "السلوك الوظيفي ومهارات الاتصال"] },
+                { level: "السابع", courses: ["اختبار الاختراق", "أمن السحابة و الخادم "] },
+                { level: "الثامن", courses: ["الجرائم الالكترونية والتحليل الجنائي", "انترنت الأشياء"] },
+                { level: "التاسع", courses: ["التدريب التعاوني"] }
+            ],
+            "شبكات الحاسب": [
+                { level: "الأول", courses: ["مقدمة تطبيقات الحاسب", "التوجيه المهني والتميز", "تجميع الحاسب و تشغيله"] },
+                { level: "الثاني", courses: ["مبادئ شبكات الحاسب", "لغة انجليزية 1", "الرياضيات "] },
+                { level: "الثالث", courses: ["تطبيقات الحاسب المتقدمة", "نظم التشغيل 1", "لغة انجليزية 2"] },
+                { level: "الرابع", courses: ["التوجيه والتحويل 1", "الكتابة الفنية", "الفيزياء "] },
+                { level: "الخامس", courses: ["نظم التشغيل 2", "مقدمة في أمن الشبكات ", "لغة انجليزية 3"] },
+                { level: "السادس", courses: ["التوجيه والتحويل 2", "الدراسات الإسلامية", "موضوعات مختارة "] },
+                { level: "السابع", courses: ["ربط الشبكات", "التاهيل للشهادات الاحترافية ", "السلوك الوظيفي ومهارات الاتصال", "مهارات التعلم"] },
+                { level: "الثامن", courses: ["أمن الشبكات المتقدم", "المشروع ", "لغة انجليزية 4"] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "إدارة المستشفيات والمؤسسات الصحية": [
+                { level: "الأول", courses: ["مبادئ إدارة الأعمال ", "لغة انجليزية 1", "الرياضيات "] },
+                { level: "الثاني", courses: ["إدارة المستشفيات 1", "مقدمة تطبيقات الحاسب", "مبادئ اداراة الموارد البشرية "] },
+                { level: "الثالث", courses: ["مقدمة في الإحصاء ", "تطبيقات الحاسب الالي المتقدمة ", "إدارة المستشفيات 2"] },
+                { level: "الرابع", courses: ["السجلات الطبية ", "إدارة التغذية و التزويد ", "لغة انجليزية 2"] },
+                { level: "الخامس", courses: ["دراسات إسلامية ", "التعرف على عالم الاعمال 1", "التنظيم الإداري في المستشفيات", "السلامة وإدارة الصيانة الطبية"] },
+                { level: "السادس", courses: ["احصاء طبي و القياسات الحيوية ", "التعرف على عالم الأعمال 2", "لغة انجليزية 3"] },
+                { level: "السابع", courses: ["مهارات التعلم ", "المصطلحات الطبية الإدارية", "إدارة الجودة والاعتمادية ", "إدارة الأداء"] },
+                { level: "الثامن", courses: ["السلوك التنظيمي", "موضوعات مختارة في إدارة المستشفيات و المؤسسات الصحية ", "التأمين الصحي "] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "إدارة التمريض": [
+                { level: "الأول", courses: ["مبادئ إدارة الأعمال", "لغة انجليزية 1", "الرياضيات "] },
+                { level: "الثاني", courses: ["التوجيه المهني والتميز", "مقدمة تطبيقات الحاسب", "مدخل الى إدارة التمريض ", "المصطلحات الطبية "] },
+                { level: "الثالث", courses: ["أخلاقيات المهنة و المسؤولية المهنية في التمريض ", "لغة انجليزية 2", "تطبيقات الحاسب المتقدمة ", "الدراسات الإسلامية"] },
+                { level: "الرابع", courses: ["إدارة خدمات التمريض ", "مفاهيم القيادة و الإشراف التمريضي ", "إدارة الوثائق والسجلات الإدارية الصحية "] },
+                { level: "الخامس", courses: ["التخطيط التشغيلي وإدارة العمليات الإدارية ", "نظم المعلومات الصحية ", "السلوك الوظيفي ومهارات الاتصال"] },
+                { level: "السادس", courses: ["السلوك المهني في التمريض ", "إدارة الجودة في الخدمات الإدارية الصحية ", "التخطيط وإدارة الموارد التمريضية "] },
+                { level: "السابع", courses: ["إدارة التعليم و التدريب التمريضي ", "مهارات الاتصال الصحي ", "إدارة الأزمات و الطوارئ في المنشآت الصحية "] },
+                { level: "الثامن", courses: ["الإدارة الاستراتيجية في الخدمات الصحية ", "موضوعات مختارة في إدارة التمريض "] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "الذكاء الاصطناعي": [
+                { level: "الأول", courses: ["مقدمة تطبيقات الحاسب", "تجميع الحاسب وتشغيله", "الكتابة الفنية"] },
+                { level: "الثاني", courses: ["الرياضيات ", "تطبيقات الحاسب المتقدمة ", "لغة انجليزية 1", "الحوسبة السحابية "] },
+                { level: "الثالث", courses: ["الفيزياء ", "مقدمة في علم الإحصاء والاحتمالات ", "أساسيات البرمجة", "مقدمة في الذكاء الاصطناعي "] },
+                { level: "الرابع", courses: ["لغة انجليزية 2", "مقدمة في استخراج البيانات ", "أساسيات قواعد البيانات ", "الدوائر المنطقية "] },
+                { level: "الخامس", courses: ["لغة انجليزية 3", "تمثيل البيانات ", "انترنت الأشياء ", "تعلم الآلة 1"] },
+                { level: "السادس", courses: ["التعرف على عالم الأعمال 1", "الدراسات الإسلامية", "لغة انجليزية 4", "تعلم الآلة 2"] },
+                { level: "السابع", courses: ["التعرف على عالم الأعمال 2", "تطبيقات الذكاء الاصطناعي ", "التعلم العميق "] },
+                { level: "الثامن", courses: ["مهارات التعلم ", "التأهيل للشهادات الاحترافية ", "الذكاء الاصطناعي التوليدي", "مشروع التخرج "] },
+                { level: "التاسع", courses: ["التدريب التعاوني 1"] },
+                { level: "العاشر", courses: ["التدريب التعاوني 2"] }
+            ],
+            "إدارة المنظمات الغير ربحية": [
+                { level: "الأول", courses: ["أسس الإدارة ", "أخلاقيات العمل ", "إدارة الموارد البشرية ", "مبادئ التسويق"] },
+                { level: "الثاني", courses: ["إدارة المشاريع ", "تقنية العملومات ", "مبادئ المحاسبة "] },
+                { level: "الثالث", courses: ["إدارة المتطوعين ", "الإدارة المالية والتمويل ", "الحوكمة "] },
+                { level: "الرابع", courses: ["مراقبة وتقييم المشاريع ", "إدارة العلاقات العامة والإعلام ", "الإدارة الاستراتيجية "] },
+                { level: "الخامس", courses: ["التدريب التعاوني 1"] },
+                { level: "السادس", courses: ["التدريب التعاوني 2"] }
+            ]
+        };
+
+        // Populate the dropdown
+        window.onload = function() {
+            const selectElement = document.getElementById("diplomaSelect");
+            for (let diplomaName in diplomasData) {
+                let option = document.createElement("option");
+                option.value = diplomaName;
+                option.textContent = diplomaName;
+                selectElement.appendChild(option);
+            }
+        };
+
+        // Handle selection change
+        function showDiplomaDetails() {
+            const selectedDiploma = document.getElementById("diplomaSelect").value;
+            const detailsContainer = document.getElementById("detailsContainer");
+
+            if (selectedDiploma === "") {
+                detailsContainer.style.display = "none";
+                return;
+            }
+
+            const info = diplomasData[selectedDiploma];
+            const levels = levelsData[selectedDiploma];
+
+            // Fill basic info
+            document.getElementById("diplomaTitle").textContent = "دبلوم " + selectedDiploma;
+            document.getElementById("diplomaDescription").textContent = info.description;
+            document.getElementById("diplomaGeneralObj").textContent = info.generalObjective;
+
+            // Fill specific objectives
+            const objectivesList = document.getElementById("diplomaSpecificObjs");
+            objectivesList.innerHTML = "";
+            info.specificObjectives.forEach(obj => {
+                let li = document.createElement("li");
+                li.textContent = obj;
+                objectivesList.appendChild(li);
+            });
+
+            // Fill levels and courses
+            const levelsGrid = document.getElementById("levelsGrid");
+            levelsGrid.innerHTML = "";
+
+            levels.forEach(levelData => {
+                let card = document.createElement("div");
+                card.className = "level-card";
+
+                let header = document.createElement("div");
+                header.className = "level-header";
+                header.textContent = "المستوى " + levelData.level;
+                card.appendChild(header);
+
+                let ul = document.createElement("ul");
+                ul.className = "level-courses";
+                levelData.courses.forEach(course => {
+                    let li = document.createElement("li");
+                    li.textContent = course;
+                    ul.appendChild(li);
+                });
+
+                card.appendChild(ul);
+                levelsGrid.appendChild(card);
+            });
+
+            detailsContainer.style.display = "block";
+        }
+    </script>
+</body>
+</html>
